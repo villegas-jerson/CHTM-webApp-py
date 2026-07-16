@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - College of Hospitality Management{% endblock %}
+{% block body_class %}admin-page{% endblock %}
+
+{% block header_hero %}
+      <div class="young-leaders-hero">
+        <div class="young-leaders-logos">
+          <div class="yl-logo yl-logo-hm">
+            <img src="/Image/HM-logo.png" alt="Hospitality Management" />
+          </div>
+          <div class="yl-logo yl-logo-sjh">
+            <img src="/Image/sjh.jpg" alt="Society of Junior Hoteliers" />
+          </div>
+          <div class="yl-logo yl-logo-uc">
+            <img src="/Image/UCLOGO.png" alt="University of Cebu" />
+          </div>
+        </div>
+        <h1 class="young-leaders-title">College of Hospitality Management</h1>
+        <h2 class="young-leaders-subtitle">Admin Dashboard</h2>
+        <h3 class="young-leaders-subtitle">Welcome, {{ admin_username }}</h3>
+      </div>
+{% endblock %}
+
+{% block content %}
+    <main class="admin-dashboard-content">
+      <div class="dashboard-grid">
+        <a class="dashboard-card" href="/admin/announcements">
+          <h2>Manage Announcements</h2>
+          <p>Add, edit, or remove announcement cards and their images.</p>
+        </a>
+        <a class="dashboard-card" href="/admin/events">
+          <h2>Manage Events</h2>
+          <p>Add, edit, or remove events and their photo slideshows.</p>
+        </a>
+      </div>
+      <a class="dashboard-logout" href="/admin/logout">Log out</a>
+    </main>
+{% endblock %}

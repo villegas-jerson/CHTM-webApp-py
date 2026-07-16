@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Announcements - College of Hospitality Management{% endblock %}
+{% block body_class %}announcement-page{% endblock %}
+{% block nav_announcements %}active{% endblock %}
+
+{% block header_hero %}
+      <div class="young-leaders-hero">
+        <div class="young-leaders-logos">
+          <div class="yl-logo yl-logo-hm">
+            <img src="/Image/HM-logo.png" alt="Hospitality Management" />
+          </div>
+          <div class="yl-logo yl-logo-sjh">
+            <img src="/Image/sjh.jpg" alt="Society of Junior Hoteliers" />
+          </div>
+          <div class="yl-logo yl-logo-uc">
+            <img src="/Image/UCLOGO.png" alt="University of Cebu" />
+          </div>
+        </div>
+        <h1 class="young-leaders-title">College of Hospitality Management</h1>
+        <h2 class="young-leaders-subtitle">University of Cebu Main Campus</h2>
+        <h3 class="young-leaders-subtitle">Anncouncement</h3>
+      </div>
+{% endblock %}
+
+{% block content %}
+    <main class="announcement-content">
+      <div class="announcement-grid">
+        {% if not announcements %}
+          <p class="announcement-empty">No announcements posted yet. Please check back soon.</p>
+        {% endif %}
+
+        {% for row in announcements %}
+          {% if row.image_url %}
+            <div class="announcement-card announcement-card-image">
+              <img src="{{ row.image_url }}" alt="{{ row.title }}" />
+            </div>
+          {% endif %}
+          <div class="announcement-card announcement-card-text">
+            <h2>{{ row.title }}</h2>
+            {{ row.body | safe }}
+          </div>
+        {% endfor %}
+      </div>
+    </main>
+{% endblock %}

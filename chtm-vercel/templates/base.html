@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <title>{% block title %}College of Hospitality & Tourism Management{% endblock %}</title>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <header>
+      <div class="header">
+        <a href="/Home.html"><img class="Hm-logo" src="/Image/HM-logo-removebg.png" alt="HM logo" /></a>
+        <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="header-nav">
+          <li><a href="/Home.html">Home</a></li>
+          <li><a href="/About.html">About</a></li>
+          <li><a href="/Home.html#campuses">Campuses</a></li>
+          <li><a href="/Home.html#contact">Contact</a></li>
+          <li class="dropdown">
+            <a href="#more" class="dropdown-toggle">More ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/Home.html#enrollment">Enrollment Procedures</a></li>
+              <li><a href="/announcements" class="{% block nav_announcements %}{% endblock %}">Announcements</a></li>
+              <li><a href="/events" class="{% block nav_events %}{% endblock %}">Events</a></li>
+              <li><a href="/YoungLeaders.html">Young Leaders</a></li>
+              <li><a href="/admin" class="{% block nav_admin %}{% endblock %}">AdminLogin</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      {% block header_hero %}{% endblock %}
+    </header>
+
+    {% block hero_outside_header %}{% endblock %}
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer-section" id="contact">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>College of Hospitality & Tourism Management</h3>
+          <p>
+            Preparing the next generation of hospitality and tourism professionals
+            through excellence in education and industry partnerships.
+          </p>
+        </div>
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/Home.html">Home</a></li>
+            <li><a href="/About.html">About</a></li>
+            <li><a href="/Home.html#campuses">Campuses</a></li>
+            <li><a href="/Home.html#partners">Partners</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Contact Us</h4>
+          <p>Email: info@uc.edu.ph</p>
+          <p>Phone: (032) 255-1777</p>
+          <p>Address: Sanciangko St., Cebu, Cebu City</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 University of Cebu College of Hospitality & Tourism Management. All rights reserved.</p>
+      </div>
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+
+    <script>
+      (function () {
+        var toggle = document.querySelector(".nav-toggle");
+        var nav = document.querySelector(".header-nav");
+        if (toggle && nav) {
+          toggle.addEventListener("click", function () {
+            document.body.classList.toggle("nav-open");
+            toggle.setAttribute("aria-expanded", document.body.classList.contains("nav-open"));
+          });
+          nav.querySelectorAll("a").forEach(function (a) {
+            a.addEventListener("click", function () { document.body.classList.remove("nav-open"); if (toggle) toggle.setAttribute("aria-expanded", "false"); });
+          });
+          document.querySelectorAll(".dropdown-toggle").forEach(function (btn) {
+            btn.addEventListener("click", function (e) { if (window.innerWidth <= 900) { e.preventDefault(); btn.closest(".dropdown").classList.toggle("open"); } });
+          });
+        }
+      })();
+    </script>
+    {% block chatbot %}
+    <script type="module">
+      import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js";
+      Chatbot.init({
+        chatflowid: "c51a8a2e-9973-4c74-b258-0ca4db210f0d",
+        apiHost: "https://cloud.flowiseai.com",
+      });
+    </script>
+    {% endblock %}
+</body>
+</html>

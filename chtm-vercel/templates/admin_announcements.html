@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Manage Announcements - Admin</title>
+</head>
+<body class="admin-page">
+    <header>
+      <div class="header">
+        <a href="/Home.html"><img class="Hm-logo" src="/Image/HM-logo-removebg.png" alt="HM logo" /></a>
+        <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="header-nav">
+          <li><a href="/admin/dashboard">Dashboard</a></li>
+          <li><a href="/admin/announcements" class="active">Announcements</a></li>
+          <li><a href="/admin/events">Events</a></li>
+          <li><a href="/admin/logout">Log out</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="admin-crud-content">
+      <h1 class="admin-crud-title">{{ 'Edit Announcement' if edit_row else 'Add Announcement' }}</h1>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+          <div class="admin-alert admin-alert-{{ 'error' if category == 'error' else 'success' }}"><p>{{ message }}</p></div>
+        {% endfor %}
+      {% endwith %}
+
+      <form class="admin-form" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{ edit_row.id if edit_row else '' }}">
+
+        <label>Title
+          <input type="text" name="title" value="{{ edit_row.title if edit_row else '' }}" required>
+        </label>
+
+        <label>Content
+          <textarea name="body" rows="8" required>{{ edit_row.body if edit_row else '' }}</textarea>
+          <small>Basic HTML tags like &lt;p&gt;, &lt;strong&gt;, &lt;br&gt; are allowed.</small>
+        </label>
+
+        <label>Display order (lower shows first)
+          <input type="number" name="sort_order" value="{{ edit_row.sort_order if edit_row else 0 }}">
+        </label>
+
+        <label>Image
+          <input type="file" name="image" accept="image/*">
+        </label>
+
+        {% if edit_row and edit_row.image_url %}
+          <div class="admin-current-image">
+            <img src="{{ edit_row.image_url }}" alt="Current image">
+            <label class="admin-checkbox-label">
+              <input type="checkbox" name="remove_image"> Remove this image
+            </label>
+          </div>
+        {% endif %}
+
+        <div class="admin-form-actions">
+          <button type="submit" class="Login">{{ 'Save Changes' if edit_row else 'Add Announcement' }}</button>
+          {% if edit_row %}
+            <a class="admin-cancel-link" href="/admin/announcements">Cancel</a>
+          {% endif %}
+        </div>
+      </form>
+
+      <h2 class="admin-crud-subtitle">Existing Announcements</h2>
+      <div class="admin-list">
+        {% for row in announcements %}
+          <div class="admin-list-item">
+            {% if row.image_url %}
+              <img src="{{ row.image_url }}" alt="" class="admin-list-thumb">
+            {% endif %}
+            <div class="admin-list-info">
+              <h3>{{ row.title }}</h3>
+              <p class="admin-list-order">Order: {{ row.sort_order }}</p>
+            </div>
+            <div class="admin-list-actions">
+              <a href="/admin/announcements?edit={{ row.id }}" class="admin-btn-edit">Edit</a>
+              <a href="/admin/announcements/delete/{{ row.id }}" class="admin-btn-delete" onclick="return confirm('Delete this announcement?');">Delete</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </main>
+
+    <footer class="footer-section" id="contact">
+      <div class="footer-bottom">
+        <p>&copy; 2026 University of Cebu College of Hospitality & Tourism Management. All rights reserved.</p>
+      </div>
+    </footer>
+</body>
+</html>

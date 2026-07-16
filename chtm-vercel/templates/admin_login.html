@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Admin Login - College of Hospitality Management{% endblock %}
+{% block body_class %}admin-page{% endblock %}
+{% block nav_admin %}active{% endblock %}
+
+{% block header_hero %}
+      <div class="young-leaders-hero">
+        <div class="young-leaders-logos">
+          <div class="yl-logo yl-logo-hm">
+            <img src="/Image/HM-logo.png" alt="Hospitality Management" />
+          </div>
+          <div class="yl-logo yl-logo-sjh">
+            <img src="/Image/sjh.jpg" alt="Society of Junior Hoteliers" />
+          </div>
+          <div class="yl-logo yl-logo-uc">
+            <img src="/Image/UCLOGO.png" alt="University of Cebu" />
+          </div>
+        </div>
+        <h1 class="young-leaders-title">College of Hospitality Management</h1>
+        <h2 class="young-leaders-subtitle">University of Cebu Main Campus</h2>
+        <h3 class="young-leaders-subtitle">Admin Login</h3>
+      </div>
+{% endblock %}
+
+{% block content %}
+    <main class="admin-login-content">
+      <div class="login-card">
+        <h2 class="login-card-title">Administrator Access</h2>
+        <p class="login-card-subtitle">Please sign in to manage site content.</p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <p class="login-error">{{ messages[0] }}</p>
+          {% endif %}
+        {% endwith %}
+        <form action="/admin/login" method="POST">
+            <div class="form-field Username">
+                <label for="Uname">Username</label>
+                <input id="Uname" name="username" type="text" placeholder="Enter Username" required>
+            </div>
+            <div class="form-field Password">
+                <label for="Pass">Password</label>
+                <input id="Pass" name="password" type="password" placeholder="*******" required>
+            </div>
+
+            <button type="submit" class="Login">Login</button>
+        </form>
+      </div>
+    </main>
+{% endblock %}

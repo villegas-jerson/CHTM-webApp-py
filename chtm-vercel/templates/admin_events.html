@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Manage Events - Admin</title>
+</head>
+<body class="admin-page">
+    <header>
+      <div class="header">
+        <a href="/Home.html"><img class="Hm-logo" src="/Image/HM-logo-removebg.png" alt="HM logo" /></a>
+        <button type="button" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+        <ul class="header-nav">
+          <li><a href="/admin/dashboard">Dashboard</a></li>
+          <li><a href="/admin/announcements">Announcements</a></li>
+          <li><a href="/admin/events" class="active">Events</a></li>
+          <li><a href="/admin/logout">Log out</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="admin-crud-content">
+      <h1 class="admin-crud-title">{{ 'Edit Event' if edit_event else 'Add Event' }}</h1>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+          <div class="admin-alert admin-alert-{{ 'error' if category == 'error' else 'success' }}"><p>{{ message }}</p></div>
+        {% endfor %}
+      {% endwith %}
+
+      <form class="admin-form" method="POST" action="/admin/events">
+        <input type="hidden" name="action" value="save_event">
+        <input type="hidden" name="id" value="{{ edit_event.id if edit_event else '' }}">
+
+        <label>Event Title
+          <input type="text" name="title" value="{{ edit_event.title if edit_event else '' }}" required>
+        </label>
+
+        <label>Subtitle / Description
+          <textarea name="subtitle" rows="3">{{ edit_event.subtitle if edit_event else '' }}</textarea>
+        </label>
+
+        <label>Display order (lower shows first)
+          <input type="number" name="sort_order" value="{{ edit_event.sort_order if edit_event else 0 }}">
+        </label>
+
+        <div class="admin-form-actions">
+          <button type="submit" class="Login">{{ 'Save Changes' if edit_event else 'Add Event' }}</button>
+          {% if edit_event %}
+            <a class="admin-cancel-link" href="/admin/events">Cancel</a>
+          {% endif %}
+        </div>
+      </form>
+
+      {% if edit_event %}
+        <h2 class="admin-crud-subtitle">Photos for "{{ edit_event.title }}"</h2>
+
+        <form class="admin-form" method="POST" action="/admin/events" enctype="multipart/form-data">
+          <input type="hidden" name="action" value="add_images">
+          <input type="hidden" name="event_id" value="{{ edit_event.id }}">
+          <label>Add photos (you can select multiple)
+            <input type="file" name="images" accept="image/*" multiple>
+          </label>
+          <div class="admin-form-actions">
+            <button type="submit" class="Login">Upload Photos</button>
+          </div>
+        </form>
+
+        <div class="admin-image-grid">
+          {% for img in edit_event.images %}
+            <div class="admin-image-tile">
+              <img src="{{ img.image_url }}" alt="">
+              <a href="/admin/events/images/delete/{{ img.id }}?event_id={{ edit_event.id }}"
+                 class="admin-btn-delete-tile"
+                 onclick="return confirm('Delete this photo?');">Delete</a>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <h2 class="admin-crud-subtitle">Existing Events</h2>
+      <div class="admin-list">
+        {% for row in events %}
+          <div class="admin-list-item">
+            <div class="admin-list-info">
+              <h3>{{ row.title }}</h3>
+              <p class="admin-list-order">Order: {{ row.sort_order }}</p>
+            </div>
+            <div class="admin-list-actions">
+              <a href="/admin/events?edit={{ row.id }}" class="admin-btn-edit">Edit / Photos</a>
+              <a href="/admin/events/delete/{{ row.id }}" class="admin-btn-delete" onclick="return confirm('Delete this event and all its photos?');">Delete</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </main>
+
+    <footer class="footer-section" id="contact">
+      <div class="footer-bottom">
+        <p>&copy; 2026 University of Cebu College of Hospitality & Tourism Management. All rights reserved.</p>
+      </div>
+    </footer>
+</body>
+</html>

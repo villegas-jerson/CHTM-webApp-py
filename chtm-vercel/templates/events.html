@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Events - College of Hospitality & Tourism Management{% endblock %}
+{% block body_class %}events-page{% endblock %}
+{% block nav_events %}active{% endblock %}
+
+{% block hero_outside_header %}
+    <div class="young-leaders-hero">
+      <div class="young-leaders-logos">
+        <div class="yl-logo yl-logo-hm">
+          <img src="/Image/HM-logo.png" alt="Hospitality Management" />
+        </div>
+        <div class="yl-logo yl-logo-sjh">
+          <img src="/Image/sjh.jpg" alt="Society of Junior Hoteliers" />
+        </div>
+        <div class="yl-logo yl-logo-uc">
+          <img src="/Image/UCLOGO.png" alt="University of Cebu" />
+        </div>
+      </div>
+      <h1 class="young-leaders-title">College of Hospitality and Tourism Management</h1>
+      <h2 class="young-leaders-subtitle">Events &amp; Activities</h2>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <main class="events-content">
+      <section class="events-gallery-section">
+        {% if not events %}
+          <p class="announcement-empty">No events posted yet. Please check back soon.</p>
+        {% endif %}
+
+        {% for event in events %}
+          <div class="event-hero-block">
+            <div class="event-slides" data-event-slides="{{ event.id }}">
+              {% for img in event.images %}
+                <img src="{{ img.image_url }}" alt="{{ event.title }}" />
+              {% endfor %}
+            </div>
+            <div class="event-hero-overlay">
+              <h2 class="event-hero-title">{{ event.title }}</h2>
+              {% if event.subtitle %}
+                <p class="event-hero-subtitle">{{ event.subtitle }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </section>
+    </main>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+      (function () {
+        function initEventSlideshow(container, intervalMs) {
+          var slides = container.querySelectorAll("img");
+          if (!slides.length) return;
+          var current = 0;
+          slides.forEach(function (img, index) {
+            img.classList.toggle("is-active", index === 0);
+          });
+          if (slides.length > 1) {
+            setInterval(function () {
+              slides[current].classList.remove("is-active");
+              current = (current + 1) % slides.length;
+              slides[current].classList.add("is-active");
+            }, intervalMs);
+          }
+        }
+
+        document.querySelectorAll("[data-event-slides]").forEach(function (container) {
+          initEventSlideshow(container, 3500);
+        });
+      })();
+    </script>
+{% endblock %}
