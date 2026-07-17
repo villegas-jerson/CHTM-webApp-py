@@ -108,5 +108,5 @@ with cascading image cleanup. All passed.
   Vercel's stateless serverless model — no server-side session storage needed.
 
 
-Simple Change for deployment bug (wa rani
-)
+Simple Change for deployment bug (wa rani)
+pun an napud bag o
