@@ -7,7 +7,7 @@ import db
 from helpers import login_required, upload_image, delete_image, ImageUploadError
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key-change-me")
+app.secret_key = os.environ.get("SECRET_KEY", "CHTM-WAOW")
 db.init_app(app)
 
 
