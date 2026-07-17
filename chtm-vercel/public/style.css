@@ -15,7 +15,7 @@ header .header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  min-width: 800px;
+  min-width: 500px;
   padding-left: 120px;
   padding-right: 80px;
   z-index: 99;
@@ -29,12 +29,12 @@ header .header {
   align-items: center;
   gap: 0;
 }
-.header .Hm-logo {
+/*.header .Hm-logo {   HM Logo class removed (may Add again later)
   width: 250px;
   height: 230px;
   cursor: pointer;
   object-fit: contain;
-}
+}*/
 header ul {
   list-style-type: none;
   text-align: center;
