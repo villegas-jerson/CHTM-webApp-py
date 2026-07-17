@@ -1050,6 +1050,7 @@ section {
   max-width: 70px;
   height: auto;
   object-fit: contain;
+  border-radius: 50%;
 }
 
 .yl-logo-sjh img {
