@@ -29,12 +29,13 @@ header .header {
   align-items: center;
   gap: 0;
 }
-/*.header .Hm-logo {   HM Logo class removed (may Add again later)
-  width: 250px;
-  height: 230px;
+.header .Hm-logo {
+  width: auto;
+  height: 90px;
+  max-height: 90px;
   cursor: pointer;
   object-fit: contain;
-}*/
+}
 header ul {
   list-style-type: none;
   text-align: center;
@@ -1063,6 +1064,13 @@ section {
   max-width: 100px;
   height: auto;
   object-fit: contain;
+}
+
+.yl-logo-uc img[src*="isologo"] {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #fff;
 }
 
 .young-leaders-title {
