@@ -29,12 +29,12 @@ header .header {
   align-items: center;
   gap: 0;
 }
-/*.header .Hm-logo {   HM Logo class removed (may Add again later)
+.header .Hm-logo {
   width: 250px;
   height: 230px;
   cursor: pointer;
   object-fit: contain;
-}*/
+}
 header ul {
   list-style-type: none;
   text-align: center;
