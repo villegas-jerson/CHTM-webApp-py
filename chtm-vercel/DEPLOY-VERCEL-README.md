@@ -106,3 +106,7 @@ with cascading image cleanup. All passed.
 - Deleting an announcement/event/image also removes it from Cloudinary.
 - Session auth uses Flask's signed-cookie sessions, which work natively in
   Vercel's stateless serverless model — no server-side session storage needed.
+
+
+Simple Change for deployment bug (wa rani
+)
